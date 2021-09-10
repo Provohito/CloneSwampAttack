@@ -8,11 +8,17 @@ public class EnemyScr : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private int _rewads;
 
-    [SerializeField] private Player _target;
+    private Player _target;
 
-    public event UnityAction Dying;
+    public event UnityAction<EnemyScr> Dying;
+    public int Rewards => _rewads;
+    
 
     public Player Target => _target;
+    public void Init(Player target)
+    {
+        _target = target;
+    }
 
     public void TakeDamage(int damage)
     {
@@ -20,8 +26,11 @@ public class EnemyScr : MonoBehaviour
 
         if (_health <= 0)
         {
+            Dying?.Invoke(this);
             Destroy(gameObject);
         }
     }
+
+
 
 }
