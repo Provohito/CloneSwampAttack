@@ -30,7 +30,8 @@ public class WeaponView : MonoBehaviour
 
     private void TryLogItem()
     {
-        if (_weapon.IsBuyed)
+        Debug.Log(_weapon.IsBuyed);
+        if (_weapon.IsBuyed == true)
             _sellBtn.interactable = false;
     }
 

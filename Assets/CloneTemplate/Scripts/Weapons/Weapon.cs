@@ -20,6 +20,7 @@ public abstract class Weapon : MonoBehaviour
 
     public void Buy()
     {
+        Debug.Log("Buying");
         _isBuyed = true;
     }
 
