@@ -37,7 +37,7 @@ public class Shop : MonoBehaviour
         {
             _player.BuyWeapon(weapon);
             weapon.Buy();
-            Debug.Log("12345");
+            Debug.Log("dsads");
             view.SellBtnClick -= OnSellBtnClick;
         }
     }
