@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
 
     private Weapon _currentWeapon;
+    private int _currentWeaponNumber = 0;
     private int _currentHealth;
     private Animator _animator;
     public int Money { get; private set; }
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _currentWeapon = _weapons[0];
+        ChangeWeapon(_weapons[_currentWeaponNumber]);
         _currentHealth = _health;
         _animator = GetComponent<Animator>();
     }
@@ -47,14 +48,45 @@ public class Player : MonoBehaviour
     {
         Money += money;
         MoneyChanged?.Invoke(Money);
-        Debug.Log("saddsadsa");
     }
 
     public void BuyWeapon(Weapon weapon)
     {
         Money -= weapon.Price;
         MoneyChanged?.Invoke(Money);
-        Debug.Log("rew");
         _weapons.Add(weapon);
+    }
+
+    public void NextWeapon() // Переключение на следующее оружие
+    {
+        if(_currentWeaponNumber == _weapons.Count - 1)
+        {
+            _currentWeaponNumber = 0;
+        }
+        else
+        {
+            _currentWeaponNumber++;
+        }
+
+        ChangeWeapon(_weapons[_currentWeaponNumber]);
+    }
+
+    public void PreviousWeapon() // Переключение на предыдущее оружие
+    {
+        if (_currentWeaponNumber == 0)
+        {
+            _currentWeaponNumber = _weapons.Count - 1;
+        }
+        else
+        {
+            _currentWeaponNumber--;
+        }
+
+        ChangeWeapon(_weapons[_currentWeaponNumber]);
+    }
+
+    private void ChangeWeapon(Weapon weapon) // Метод, устанавлювающий текущее оружие
+    {
+        _currentWeapon = weapon;
     }
 }
